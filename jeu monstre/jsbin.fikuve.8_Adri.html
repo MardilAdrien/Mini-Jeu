@@ -11,7 +11,7 @@ Released under the MIT license: http://jsbin.mit-license.org
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Nearly a real game</title>
+  <title>Super Obstacle</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.25/howler.min.js"></script>
 <style id="jsbin-css">
 canvas {
@@ -22,10 +22,21 @@ canvas {
 </head>
 <body>
   <canvas id="myCanvas"  width="600" height="500"></canvas>
+  <!--AUDIO-->
+  <audio id="tik"  preload="auto">
+	<source src="zelda.mp3" controls></source>
+</audio>
+
+<audio id="song"  autoplay loop>
+    <source src="zelda.mp3" controls></source>
+  
+</audio>
+
 <script id="jsbin-javascript">
 // Inits
 window.onload = function init() {
     var game = new GF();
+
     game.start();
 };
 
@@ -121,6 +132,8 @@ var GF = function () {
         fpsContainer.innerHTML = 'FPS: ' + fps;
         frameCount++;
     };
+	
+
 
     // clears the canvas content
     function clearCanvas() {
@@ -314,6 +327,7 @@ var GF = function () {
 
         // call the animation loop every 1/60th of second
         requestAnimationFrame(mainLoop);
+		
     };
 
   function updateObstacles(delta) {
@@ -512,7 +526,7 @@ var GF = function () {
                 monster.dead = true;
                 // Here, a sound effect greatly improves
                 // the experience!
-                //plopSound.play();
+                plopSound.play();
             }
 
             // 3) draw the ball
@@ -668,6 +682,7 @@ var GF = function () {
             this.x += calcDistanceToMove(delta, this.speedX);
             this.y += calcDistanceToMove(delta, this.speedY);
         };
+		
     }
 
     function loadAssets(callback) {
@@ -677,9 +692,9 @@ var GF = function () {
         // simple example that loads a sound and then calls the callback. We used the howler.js WebAudio lib here.
         // Load sounds asynchronously using howler.js
         plopSound = new Howl({
-            urls: ['http://mainline.i3s.unice.fr/mooc/plop.mp3'],
+            urls: ['dead.wav'],
             autoplay: false,
-            volume: 1,
+            volume: 10,
             onload: function () {
                 console.log("all sounds loaded");
                 // We're done!
@@ -763,7 +778,9 @@ var GF = function () {
     //our GameFramework returns a public API visible from outside its scope
     return {
         start: start
+		
     };
+	
 };
 
 
